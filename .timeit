@@ -1,0 +1,8 @@
+python -m timeit -s 'from linkedlist import *; iter=range(100000); ll=LinkedList(iter)' ll[0]
+python -m timeit -s 'from linkedlist import *; iter=range(100000); ll=LinkedList(iter)' ll[0]
+python -m timeit -s 'l=range(100000)' l[1000]
+
+python -m timeit -s 'from linkedlist import *; iter=range(100000); ll=LinkedList(iter)' -n 10 'll.insert(0,9)'
+python -m timeit -s 'from linkedlist import *; iter=range(1000000); ll=LinkedList(iter)' -n 10 'll.insert(0,9)'
+python -m timeit -s 'l=range(100000)' -n 10 'l.insert(0,9)'
+python -m timeit -s 'l=range(100000)' -n 10 'l.insert(0,9)'

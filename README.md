@@ -47,4 +47,8 @@ python -m timeit -s 'l=range(1000000)' -n 10 'l.insert(0,9)'
 We can see linked list is suitable for frequent insertion task, it stays constant regardless of the length while array-based list is much more time consuming since it involves moving a lot of elements to make new room.
 
 
-## *Others to be continued*
+## Sort -- Problems related to sort
+
+- Sort large file containing a lot of intergers
+
+Based on [Guido's solution for Python 3.0](neopythonic.blogspot.com.au/2008/10/sorting-million-32-bit-integers-in-2mb.html)

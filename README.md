@@ -51,4 +51,8 @@ We can see linked list is suitable for frequent insertion task, it stays constan
 
 - Sort large file containing a lot of intergers
 
-Based on [Guido's solution for Python 3.0](neopythonic.blogspot.com.au/2008/10/sorting-million-32-bit-integers-in-2mb.html)
+  Based on [Guido's solution for Python 3.0](neopythonic.blogspot.com.au/2008/10/sorting-million-32-bit-integers-in-2mb.html)
+
+- [Insertion sort advanced analysis](https://www.hackerrank.com/challenges/insertion-sort)
+ 
+  Count the number of shifs needed in insertion sort

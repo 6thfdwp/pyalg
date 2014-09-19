@@ -56,3 +56,24 @@ We can see linked list is suitable for frequent insertion task, it stays constan
 - [Insertion sort advanced analysis](https://www.hackerrank.com/challenges/insertion-sort)
  
   Count the number of shifs needed in insertion sort
+
+## Power -- Integer based power functions comparison
+```sh
+# base = 5, exponent = 900
+iteration exponent 900: total 0.031 sec in 100 loops
+recurse by one exponent 900: total 0.069 sec in 100 loops
+recurse by half exponent 900: total 0.001 sec in 100 loops
+by squaring exponent 900: total 0.001 sec in 100 loops
+
+# base = 10, exponent = 5000
+# Recurse by one cannot be executed for large exponent (exceed the maximum depth)
+iteration exponent 5000: total 0.475 sec in 100 loops
+recurse by half exponent 5000: total 0.012 sec in 100 loops
+by squaring exponent 5000: total 0.032 sec in 100 loops
+
+
+# base = 10, exponent = 50501
+iteration exponent 50501: total 34.255 sec in 100 loops
+recurse by half exponent 50501: total 0.525 sec in 100 loops
+by squaring exponent 50501: total 1.021 sec in 100 loops
+```

@@ -58,6 +58,8 @@ We can see linked list is suitable for frequent insertion task, it stays constan
   Count the number of shifs needed in insertion sort
 
 ## Power -- Integer based power functions comparison
+See [Stackoverflow discussion]( http://stackoverflow.com/questions/101439/the-most-efficient-way-to-implement-an-integer-based-power-function-powint-int
+)
 ```sh
 # base = 5, exponent = 900
 iteration exponent 900: total 0.031 sec in 100 loops

@@ -21,7 +21,7 @@ def gen_file(num):
 
     @param num -- the number of integers in file
     """
-    # Each item size is 4 for typecode 'i'. Check it using ar.itemsize 
+    # Each item size is 4 bytes for typecode 'i'. Check it using ar.itemsize 
     ar = array.array('i')
     f = open('large_int_file', 'w')
     #batch_size = num / 10
@@ -37,8 +37,8 @@ def read_in_chunks(f, size):
     Create a generator for reading file data in chunks
 
     This is particular memory efficient for large file reading
-    since it doesn't pull the data into memory all at once
-    Also take care of when we finish consuming the file data
+    since it doesn't pull the data into memory all at once.
+    Also take care of when we finish consuming the file data,
     easy to use for other code by simply iterating on it. 
     See the use in 'tempfile_gen' and 'sort_large_int_file' functions
 
@@ -76,7 +76,7 @@ def merge_sortedfiles(iters):
     ar = array.array('i')
     for x in heapq.merge(*iters):
         ar.append(x)
-        if len(ar) >= 50: # write once when extracting enough ints in order
+        if len(ar) >= 50: # write once when extracting 50 ints in order
             ws = ','.join(map(str, ar))
             #print '-' * 20
             output.write(ws)
@@ -95,10 +95,11 @@ def sort_large_int_file():
     ar = array.array('i')
     iters = []
     # Read 800 bytes each time, that is 200 integers
+    # Each temp file has the size of 800 bytes
     for data in read_in_chunks(f, 800):
-        # Equivalent to ar.fromfile(f, 30)
-        # But fromfile will raise error if less than 30 integers available
-        # fromstring is flexible provided the chunk size is multiple of the item size
+        # Also can use ar.fromfile(f, n) n is the number of ints we read
+        # But fromfile will raise error if less than n integers available
+        # fromstring (byte string) is flexible provided the chunk size is multiple of the item size
 
         ar.fromstring(data)
         t = tempfile.TemporaryFile()

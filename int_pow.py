@@ -4,7 +4,7 @@
  http://stackoverflow.com/questions/101439/the-most-efficient-way-to-implement-an-integer-based-power-function-powint-int
 """
 
-def pow_(base, exp):
+def pow_iter(base, exp):
     """
     Time:  O(exp)
     Space: O(1) since use xrange
@@ -68,21 +68,24 @@ def pow_by_squaring(x, n):
 
 if __name__ == '__main__':
     import timeit
-    def verbose(size, secs, loops):
-        print 'exponent %d:' % size,
+    def verbose(algname, size, secs, loops):
+        print '%s exponent %d:' % (algname, size),
         print 'total %.3f sec in %d loops' % (secs, loops)
 
-    base, exp = 5, 156666
+    #base, exp = 6, 900
+    base, exp = 10, 50501
     loops, repts = 100, 3
-    print pow_(base, 9)
-    print pow_rec_2(base, 9)
-    print pow_by_squaring(base, 9)
+    #print pow_iter(base, 9)
+    #print pow_rec_2(base, 9)
+    #print pow_by_squaring(base, 9)
 
-    #secs1 = timeit.timeit("pow_(%d,%d)" % (base,exp), setup="from __main__ import pow_", number=loops)
+    secs1 = timeit.timeit("pow_iter(%d,%d)" % (base,exp), setup="from __main__ import pow_iter", number=loops)
+    #secs_r = timeit.timeit("pow_rec(%d,%d)" % (base,exp), setup="from __main__ import pow_rec", number=loops)
     secs2 = timeit.timeit("pow_rec_2(%d,%d)" % (base,exp), setup="from __main__ import pow_rec_2", number=loops)
     secs3 = timeit.timeit("pow_by_squaring(%d,%d)" % (base,exp), setup="from __main__ import pow_by_squaring", number=loops)
-    #verbose(exp, secs1, loops)
-    verbose(exp, secs2, loops)
-    verbose(exp, secs3, loops)
+    verbose('iteration', exp, secs1, loops)
+    #verbose('recurse by one', exp, secs_r, loops)
+    verbose('recurse by half', exp, secs2, loops)
+    verbose('by squaring', exp, secs3, loops)
 
 

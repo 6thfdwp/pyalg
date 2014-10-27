@@ -79,3 +79,14 @@ iteration exponent 50501: total 34.255 sec in 100 loops
 recurse by half exponent 50501: total 0.525 sec in 100 loops
 by squaring exponent 50501: total 1.021 sec in 100 loops
 ```
+
+## Permutation   
+3 recurive procedures to get the full permutations out of a list with length n.
+This super neat [solution](https://github.com/laurentluce/python-algorithms/blob/master/algorithms/permutations.py) using ```generator``` outperforms in terms of efficiency and flexibility.   
+```sh
+$ python -m timeit -s 'from permutation import permute_inplace;L=range(10)' 'permute_inplace(L)'   
+10 loops, best of 3: 6.92 sec per loop
+
+$ python -m timeit -s 'from permutation import permute_gen;L=range(10)' 'for p in permute_gen(L): cc=1' 
+10 loops, best of 3: 598 msec per loop
+```

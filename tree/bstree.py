@@ -62,10 +62,12 @@ class Binarytree():
                 direct = 1
                 node = node.right
             else:
+                # node with same key found, update with new data
                 node.data = data
                 return
         inserted = self._newnode(key, data)
-# After done parent holds the refer to one leaf node which will be the parent of new inserted
+        # After done parent holds the refer to one leaf node 
+        # which will be the parent of newly inserted
         if direct == 0:
             #print '%d inserted. parent key %s left' % (key, parent.key)
             parent.left = inserted  

@@ -9,7 +9,7 @@ class Node():
          Constructor
          Initialize with value and None next pointer
 
-         value -- any type of value containing actual data
+         value (any) -- any type of value containing actual data
         """
         self.value = value
         self.next = None
@@ -23,16 +23,16 @@ class LinkedList(collections.MutableSequence):
      Provide index based operations as built-in list
 
      Example:
-     linkedlist[0]        : get the first el 
+     linkedlist[0]        : get the first el
      linkedlist[5] = value: set the 6th el with new value
      del linkedlist[3]    : delete the 4th el
     """
     def __init__(self, iterable=None):
         """
         Initialize 3 attributes
-        _len  -- Interger for the number of elements in LinkedList
-        _head -- Pointer to the first elements
-        _tail -- Pointer to the last elements
+        _len  -- Interger for the number of element in LinkedList
+        _head -- Pointer to the first element
+        _tail -- Pointer to the last element
 
         @param iterable -- Any iterable object(list, set etc.) to initialize the LinkedList
         """
@@ -71,7 +71,7 @@ class LinkedList(collections.MutableSequence):
         i = 0
         while i < index:
             node = node.next
-            #if node is None: 
+            #if node is None:
                 #return None
             i += 1
         return node
@@ -94,7 +94,7 @@ class LinkedList(collections.MutableSequence):
             pre = self._getnode(index-1)
             node = self._getnode(index)
             # splice out the node by removing the pointer to it
-            pre.next = node.next 
+            pre.next = node.next
             if node == self._tail:
                 self._tail = pre
 
@@ -110,8 +110,9 @@ class LinkedList(collections.MutableSequence):
         if self._head is None:
             self._head = newnode
         else:
+            # link the new node to the list
             self._tail.next = newnode
-
+        # make tail point to new node
         self._tail = newnode
         self._len += 1
 
@@ -131,7 +132,9 @@ class LinkedList(collections.MutableSequence):
             self._tail.next = newnode
             self._tail = newnode
         else:
+            # get the previous node of the inserted position
             node = self._getnode(index-1)
+            # if index is invalid (not in list range)
             if node is None:
                 return
             temp = node.next
@@ -155,7 +158,7 @@ class LinkedList(collections.MutableSequence):
         recurse(self, None, self._head)
 
     def reverse(self):
-        prev, cur = None, self._head 
+        prev, cur = None, self._head
         self._tail = cur
         while cur:
             # Change the next pointer to refer to its previous node
@@ -178,4 +181,3 @@ if __name__ == '__main__':
     print timeit.repeat("ll.insert(0, 9)", setup=sp, number=5)
 
     print timeit.repeat("l.insert(0, 9)", setup='l = range(1000000)', number=5)
-

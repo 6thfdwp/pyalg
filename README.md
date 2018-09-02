@@ -1,12 +1,9 @@
 A collection of data structure and algorithms implementation based on Python 2.7.3
 
-##LinkedList -- A singly linked list 
-
+## LinkedList -- A singly linked list
 Inherit `collections.MutableSequence` to provide indexed based operations
 
-
-- Compare time cost of accessing element in linked list with that of built-in list
-
+• time cost of index based access
 ```sh
 python -m timeit -s 'l=[i for i in range(100000)]' l[0]
 10000000 loops, best of 3: 0.0525 usec per loop
@@ -28,8 +25,7 @@ python -m timeit -s 'from linkedlist import *; iter=range(100000); ll=LinkedList
 ```
 We can see that time cost of accessing an element in linked list is proportionate to the position where it sits. More time needed as it moves towards the back while array-based list remains constant. See [Official design faq for list implementation](https://docs.python.org/2/faq/design.html#how-are-lists-implemented)
 
-
-- Compare time cost of insert element in the front of linked list with that of built-in list
+• time cost of insert
 ```sh
 # only run 10 loops for insertion
 python -m timeit -s 'from linkedlist import *; iter=range(100000); ll=LinkedList(iter)' -n 10 'll.insert(0,9)'
@@ -54,7 +50,7 @@ We can see linked list is suitable for frequent insertion task, it stays constan
   Based on [Guido's solution for Python 3.0](neopythonic.blogspot.com.au/2008/10/sorting-million-32-bit-integers-in-2mb.html)
 
 - [Insertion sort advanced analysis](https://www.hackerrank.com/challenges/insertion-sort)
- 
+
   Count the number of shifs needed in insertion sort
 
 ## Power -- Integer based power functions comparison
@@ -78,15 +74,4 @@ by squaring exponent 5000: total 0.032 sec in 100 loops
 iteration exponent 50501: total 34.255 sec in 100 loops
 recurse by half exponent 50501: total 0.525 sec in 100 loops
 by squaring exponent 50501: total 1.021 sec in 100 loops
-```
-
-## Permutation   
-3 recurive procedures to get the full permutations out of a list with length n.
-This super neat [solution](https://github.com/laurentluce/python-algorithms/blob/master/algorithms/permutations.py) using ```generator``` outperforms in terms of efficiency and flexibility.   
-```sh
-$ python -m timeit -s 'from permutation import permute_inplace;L=range(10)' 'permute_inplace(L)'   
-10 loops, best of 3: 6.92 sec per loop
-
-$ python -m timeit -s 'from permutation import permute_gen;L=range(10)' 'for p in permute_gen(L): cc=1' 
-10 loops, best of 3: 598 msec per loop
 ```

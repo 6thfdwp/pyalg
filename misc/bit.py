@@ -1,6 +1,11 @@
 class Bitset:
     """
     General class represents bit vector using bytearray
+
+    This is how the mapping looks like:
+    The bit set to 1 correspond to one int value, 0 means missing int
+    bv:  [(1 1 1 0 0 0 1 1), (...), (0 0 0 1  0 0 0 0)]
+    ints   7 6 5 . . . 1 0           . . . 20 . .
     """
     def __init__(self, _range):
         """ 
@@ -14,14 +19,16 @@ class Bitset:
  
     def get(self, num):
         """
-        Check if a given number is set in a bit of bit vector 
+        Check if a given number is already set in its corresponding bit
 
         @param num (int) -- the number to be checked
 
         @return 1 if set otherwise 0 
         """
-        idx = num >> 3 # divided by 8 to get the index of bytearray where num belongs to
-        offset = num & 0b111 # equal to modular since the value of mod 8 is bounded 0-7
+        # divided by 8 to get the index of bytearray where num belongs to
+        idx = num >> 3 
+        # equal to modular since the result of num mod 8 is bounded 0-7
+        offset = num & 0b111
         return self._bv[idx] & (1 << offset)
  
     def set(self, num):
@@ -64,6 +71,7 @@ def missint():
 
     The idea is to use a bit vector, mapping every int to one bit. 
     Example: 1Gb (2^30 8 billion bits) can represent 8 billion ints
+
     """
     irange = 100
     # simulate a list of ints ranging from 0 to irange
@@ -77,8 +85,8 @@ def missint():
     bitset = bytearray([0]*size)
  
     # mapping each int to its corresponding bit
-    # each/8 get the index of bytearray (which byte) it belongs to
-    # each%8 get the offset of the byte where it should set to 1
+    # each/8 get the index of bytearray (which unit) it belongs to
+    # each%8 get the offset where it should be set to 1 in its unit
     # e.g. the third byte represents ints from 16-23
     # 20 should be mapped to the third byte and the 5th bit (count from the least significant bit)
     for each in a: 

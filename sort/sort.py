@@ -1,6 +1,6 @@
 # 4,2,1,5,3
-  # 2,4,[1],5,3 lastSortedIdx = 1
-  # 1,2,4,[5],3 lastSortedIdx = 2
+# 2,4,[1],5,3 lastSortedIdx = 1
+# 1,2,4,[5],3 lastSortedIdx = 2
 def insertsort(A):
     """
     Loop invariant: all items before i that's in current for loop are sorted
@@ -20,12 +20,24 @@ def insertsort(A):
             j -= 1
     return A
 
-def mergesort(A):
-    def recurse(l, r):
+def selectsort(A):
+    for i in xrange(len(A)):
+        midx = i
+        for j in xrange(i+1, len(A)):
+            if A[j] < A[i]:
+                midx = j
+                # A[i], A[j] = A[j], A[i]
+        A[i], A[midx] = A[midx], A[i]
+    
+        
+# def mergesort(A):
+#     def recurse(l, r):
 
-    return recurse(0, len(A))
+#     return recurse(0, len(A))
 
     
 if __name__ == '__main__':
-    A = [1,2,3,5,4]
-    print insertsort(A)
+    A = [1,3,35,5,4]
+    # print insertsort(A)
+    selectsort(A)
+    print A

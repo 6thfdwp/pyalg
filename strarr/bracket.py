@@ -1,3 +1,42 @@
+def is_valid_brackets(S):
+    """
+    S contains '()', '[]', '{}'
+    """
+    p1 = ('(', ')')
+    p2 = ('[', ']')
+    p3 = ('{', '}')
+
+    def is_left_one(s):
+        return s == p1[0] or s == p2[0] or s == p3[0]
+
+    def is_right_one(s):
+        return s == p1[1] or s == p2[1] or s == p3[1]
+
+    def matched(ls, rs):
+        # print ls, rs
+        return (p1[0] == ls and p1[1] == rs) or \
+            (p2[0] == ls and p2[1] == rs) or \
+            (p3[0] == ls and p3[1] == rs)
+
+    temp = []
+    for s in S:
+        if is_left_one(s):
+            temp.append(s)
+        elif is_right_one(s):
+            if not temp: # len(temp) == 0
+                # more right bracket than left
+                print 'no matched left'
+                return False
+            last = temp[-1]
+            if matched(last, s): 
+                temp.pop()
+                print '%s - %s is matched' % (last, s)
+            else:
+                print 'not matched item'
+                return False
+    
+    return not temp
+
 def bracket(nn):
     """ Find all valid brackets combinations
 
@@ -50,4 +89,7 @@ def bracket_gen(nn):
     # bracket(nn-1)
 
 if __name__ == '__main__':
-    bracket(3)
+    # print is_valid_brackets('[()()]')
+    print is_valid_brackets('{})){}')
+    # print is_valid_brackets('(){}')
+    # bracket(3)

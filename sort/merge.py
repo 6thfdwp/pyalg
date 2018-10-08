@@ -36,7 +36,7 @@ def read_in_chunks(f, size):
     """
     Create a generator for reading file data in chunks
 
-    This is particular memory efficient for large file reading
+    This is particularly memory efficient for large file reading
     since it doesn't pull the data into memory all at once.
     Also take care of when we finish consuming the file data,
     easy to use for other code by simply iterating on it. 

@@ -10,54 +10,19 @@ def atoi(S):
     """
     ls = len(S)
     res = 0
-    for i, n in enumerate( reversed(range(ls)) ):
+    for i, n in enumerate( reversed(xrange(ls)) ):
+    
         if S[i] == '-':
             m = True
             continue
         # ord return an int representing the value of byte when it is
         # ASCII 8-bit string. The value difference with '0' is the int we want 
-        res += (ord(S[i]) - ord('0')) * 10**i
+        # the first digit need to multiply by 10^ (last index), 100, 10, 1..
+        res += (ord(S[i]) - ord('0')) * 10**n
     # return (0-res) if m else res
     return res
 
-def is_valid_brackets(S):
-    """
-    S contains '()', '[]', '{}'
-    """
-    p1 = ('(', ')')
-    p2 = ('[', ']')
-    p3 = ('{', '}')
 
-    def is_left_one(s):
-        return s == p1[0] or s == p2[0] or s == p3[0]
-
-    def is_right_one(s):
-        return s == p1[1] or s == p2[1] or s == p3[1]
-
-    def matched(ls, rs):
-        print ls, rs
-        return (p1[0] == ls and p1[1] == rs) or \
-            (p2[0] == ls and p2[1] == rs) or \
-            (p3[0] == ls and p3[1] == rs)
-
-    temp = []
-    for s in S:
-        if is_left_one(s):
-            temp.append(s)
-        elif is_right_one(s):
-            if not temp:
-                print 'no matched left'
-                return False
-            elif matched(temp.pop(), s): 
-                print '%s is matched' % s
-            else:
-                print 'not matched item'
-                return False
-    
-    return not temp
 
 if __name__ == '__main__':
-    # print atoi('9')
-    print is_valid_brackets('[{}}]')
-    print is_valid_brackets(')){}')
-    print is_valid_brackets('(){}')
+    print atoi('567')

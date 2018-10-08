@@ -1,59 +1,117 @@
-class Solution:
-    # @param A : tuple of integers
-    # @return an integer
+def romanToInt(A):
+    rule = {
+      'I': {step:1, jump: ['V', 'X'], m:'V', r:'X'},
+      'V': {step:5, jump: []},
+      'X': {step:10,jump: ['L', 'C'], m:'L', r:'C'},
+      'L': {step:50, jump: []},
+      'C': {step:100, jump: []}
+    }
+    result, i = 0, 0
+    _len = len(A)
+    while i <= _len:
+        symbol, nextSymbol = A[i], A[i+1]
+        if symbol != nextSymbol:
+            if nextSymbol in rule[symbol].jump:
+                result += rule[nextSymbol].step - rule[symbol].step
+                i += 2
+            else:
+                result += rule[symbol].step
+        else:
+            result += rule[symbol].step
+            i += 1
     
-    def set(self, bv, a):
-        idx = a / 8
-        offset = a % 8
-        bv[idx] |= (1 << offset)
-    def get(self, bv, a):
-        idx = a / 8
-        offset = a % 8
-        print idx, offset
-        return bv[idx] & 1 << offset
-        
-    def repeatedNumber(self, A):
-        maxN = len(A) - 1
-        size = maxN / 8 + 1
-        print maxN, size
-        bv = bytearray([0] * size)
-    
-        # self.get(bv, 359)
-        for a in A:
-            if self.get(bv, a):
-                return a
-            self.set(bv, a)
+    return result
 
-def spiralOrder(A):
+def removeDuplicates(A):
+    _len = len(A)
+    if _len == 0 or _len == 1: return _len
+    nj = 0
+    for i in xrange(_len-1):
+        if A[i] != A[i+1]:
+            nj += 1
+            A[nj] = A[i+1]
+            # print nj
+
+    print 'final nj %d' % nj
+    return nj
+
+from collections import OrderedDict
+from collections import defaultdict 
+def sum2(A, B):
     res = []
-    m, n = len(A), len(A[0])
-    T, B, L, R = 0, m, 0, n
-    while T < B and L < R:
-        # from L to R
-        for j in xrange(L, R):
-            res.append(A[T][j])
-        # from T to B
-        for i in xrange(T+1, B):
-            res.append(A[i][R-1])
-        
-        # from R to L
-        if B - T > 1:
-            for j in reversed(xrange(L, R-1)):
-                res.append(A[B-1][j])
-        # B -> T
-        if R - L > 1:
-            for i in reversed(xrange(T+1, B-1)):
-                res.append(A[i][L])
+    target = B
+    d = defaultdict(list)
+    for i, a in enumerate(A):
+        d[a].append(i+1)
+    print d
+    for i, a in enumerate(A):
+        b = target - a
+        if b in d:
+            for idx in d[b]:
+                # idx = d[b][0]
+                # only a on left and b on right, can not be self
+                if i+1 < idx:
+                    res.append([i+1, idx])
+                    break
+    print res
+    if len(res) == 0: return []
+    if len(res) == 1: return res[0]
 
-        print res
-        T, B, L, R = T+1, B-1, L+1, R-1 
-    return res
+    n = len(res)
+    i, l = 1, res[0]
+    while i < n:
+        i1, i2 = l[1], res[i][1]
+        if i2 < i1:
+            l = res[i]
+        i += 1
 
+    return l
+
+def test(line):
+    n, p  = line.split(' ')
+    i = p.find('+')
+    if i != -1:
+        op = '+'
+        opIdx = i
+    else:
+        op = '-'
+        opIdx = p.find('-')
+    n1, n2 = int(n[:opIdx]), int(n[opIdx:])
+    print n1, n2
+    if op == '+':
+        print n1+n2
+    else:
+        print n1-n2
+
+def test1(line):
+    inputs = [int(s) for s in line.split(',')]
+    print inputs
+    _len = len(inputs)
+    result = inputs[0]
+    for i in xrange(_len):
+        temp = inputs[i]
+        result = max(temp, result)
+        j = i + 1
+        while j < _len:
+            temp *= inputs[j]
+            result = max(temp, result)
+            j += 1
+    
+    print result
+
+
+            
 if __name__ == '__main__':
-    A = [1,3,2]
-    B = [2,3,1]
-    c =  [ 247, 240, 303, 9, 304, 105, 44, 204, 291, 26, 242, 2, 358, 264, 176, 289, 196, 329, 189, 102, 45, 111, 115, 339, 74, 200, 34, 201, 215, 173, 107, 141, 71, 125, 6, 241, 275, 88, 91, 58, 171, 346, 219, 238, 246, 10, 118, 163, 287, 179, 123, 348, 283, 313, 226, 324, 203, 323, 28, 251, 69, 311, 330, 316, 320, 312, 50, 157, 342, 12, 253, 180, 112, 90, 16, 288, 213, 273, 57, 243, 42, 168, 55, 144, 131, 38, 317, 194, 355, 254, 202, 351, 62, 80, 134, 321, 31, 127, 232, 67, 22, 124, 271, 231, 162, 172, 52, 228, 87, 174, 307, 36, 148, 302, 198, 24, 338, 276, 327, 150, 110, 188, 309, 354, 190, 265, 3, 108, 218, 164, 145, 285, 99, 60, 286, 103, 119, 29, 75, 212, 290, 301, 151, 17, 147, 94, 138, 272, 279, 222, 315, 116, 262, 1, 334, 41, 54, 208, 139, 332, 89, 18, 233, 268, 7, 214, 20, 46, 326, 298, 101, 47, 236, 216, 359, 161, 350, 5, 49, 122, 345, 269, 73, 76, 221, 280, 322, 149, 318, 135, 234, 82, 120, 335, 98, 274, 182, 129, 106, 248, 64, 121, 258, 113, 349, 167, 192, 356, 51, 166, 77, 297, 39, 305, 260, 14, 63, 165, 85, 224, 19, 27, 177, 344, 33, 259, 292, 100, 43, 314, 170, 97, 4, 78, 310, 61, 328, 199, 255, 159, 185, 261, 229, 11, 295, 353, 186, 325, 79, 142, 223, 211, 152, 266, 48, 347, 21, 169, 65, 140, 83, 156, 340, 56, 220, 130, 117, 143, 277, 235, 59, 205, 153, 352, 300, 114, 84, 183, 333, 230, 197, 336, 244, 195, 37, 23, 206, 86, 15, 187, 181, 308, 109, 293, 128, 66, 270, 209, 158, 32, 25, 227, 191, 35, 40, 13, 175, 146, 299, 207, 217, 281, 30, 357, 184, 133, 245, 284, 343, 53, 210, 306, 136, 132, 239, 155, 73, 193, 278, 257, 126, 331, 294, 250, 252, 263, 92, 267, 282, 72, 95, 337, 154, 319, 341, 70, 81, 68, 160, 8, 249, 96, 104, 137, 256, 93, 178, 296, 225, 237 ]
-    c.sort()
-    print c
-    s = Solution()
-    # print s.repeatedNumber(c)
+    P = [ 87, 14, 25, 41, 17, 48, 42, 15, 74, 45, 73, 20, 11, 39, 54, 5, 29, 53, 89, 66, 56, 4, 60, 98, 92, 20, 16, 80 ]
+
+    A = [ 5, 6, 6, 7,7,8 ]
+    B = [1,1,2,2,3,5,5]
+    A1 = [5,5,5,5,5,6]
+    A2 = [1,1,1, 2, 1]
+    
+    # A = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    A = [2,3,3,6,15,8,7,11,2,1]
+    # print sum2(A, 4)
+    test1('-1,-3,6,-2,2,4')
+    # test1('2,3,0,-1,2,4')
+    # test('590 ')

@@ -10,7 +10,7 @@ def is_palindrome_num(x):
     while x/div >= 10:
         # num is in [10,99] div is 10
         # num is in [100, 999] div is 100 etc.,
-        # how many digits x has
+        # bascially div means how many digits x has
         div *= 10
     while x > 0:
         l = x / div
@@ -90,6 +90,8 @@ def longest_subpalindrome_2(s):
     """
     def expand(s, l, r):
         """
+        expand from the middle to two ends, 
+        initial is single for odd subpalidrome, or two for even 
         @param s (string) -- the input string
         @param l (int) -- left index of substring
         @param r (int) -- right index of substring
@@ -120,6 +122,7 @@ def longest_subpalindrome_2(s):
 
 if __name__ == '__main__':
     print longest_subpalindrome_2('ababa')
+    print longest_subpalindrome_2('abbac')
     print longest_subpalindrome_2('abcccccdd')
     # print longest_subpalindrome_dp('aaaaa')
     # print longest_palindrome_dp('abacdfgdcaba')

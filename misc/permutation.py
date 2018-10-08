@@ -86,8 +86,8 @@ def permute_gen(l):
         x = [l.pop(0)]
         for p in permute_gen(l):
             for i in range(len(p)+1):
-            # List-slicing to insert one item poped in current recursion
-            # to every position of each permutation from previous recursion
+                # List-slicing to insert one item poped in current recursion
+                # to every position of each permutation from previous recursion
                 yield p[:i] + x + p[i:]
 
 

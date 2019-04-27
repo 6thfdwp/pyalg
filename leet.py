@@ -35,6 +35,13 @@ def removeDuplicates(A):
     print 'final nj %d' % nj
     return nj
 
+def sum22(A, s):
+    d = {}
+    for i, a in enumerate(A):
+        target = s - a
+        if a not in d:
+
+
 from collections import OrderedDict
 from collections import defaultdict 
 def sum2(A, B):
@@ -66,39 +73,6 @@ def sum2(A, B):
         i += 1
 
     return l
-
-def test(line):
-    n, p  = line.split(' ')
-    i = p.find('+')
-    if i != -1:
-        op = '+'
-        opIdx = i
-    else:
-        op = '-'
-        opIdx = p.find('-')
-    n1, n2 = int(n[:opIdx]), int(n[opIdx:])
-    print n1, n2
-    if op == '+':
-        print n1+n2
-    else:
-        print n1-n2
-
-def test1(line):
-    inputs = [int(s) for s in line.split(',')]
-    print inputs
-    _len = len(inputs)
-    result = inputs[0]
-    for i in xrange(_len):
-        temp = inputs[i]
-        result = max(temp, result)
-        j = i + 1
-        while j < _len:
-            temp *= inputs[j]
-            result = max(temp, result)
-            j += 1
-    
-    print result
-
 
             
 if __name__ == '__main__':

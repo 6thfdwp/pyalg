@@ -14,30 +14,64 @@ def insertsort(A):
     for i in xrange(1, _len):
         j = i
         while A[j] < A[j-1] and j > 0:
-            # since items up to j-1 have been sorted, if A[j] is in right position
+            # since items up to i-1 have been sorted, if A[j] is in right position
             # we could early break go to next one to check
             A[j], A[j-1] = A[j-1], A[j]
             j -= 1
     return A
 
+# 4 1 2 5 3
 def selectsort(A):
     for i in xrange(len(A)):
-        midx = i
+        # initial min index is current i, items before i are sorted
+        minIdx = i
+        # select the min index after i
         for j in xrange(i+1, len(A)):
-            if A[j] < A[i]:
-                midx = j
-                # A[i], A[j] = A[j], A[i]
-        A[i], A[midx] = A[midx], A[i]
+            if A[j] < A[minIdx]:
+            # not swap here as bubble sort, just update min index
+                minIdx = j
+        A[i], A[minIdx] = A[minIdx], A[i]
     
         
-# def mergesort(A):
-#     def recurse(l, r):
+def mergesort(A):
+    def divide(A, l, r):
+        print l, r
+        if (l >= r):
+            return [A[r]]
+        m = (l + r) / 2
+        L = divide(A, l, m)
+        R = divide(A, m+1, r)
 
-#     return recurse(0, len(A))
+        return merge_(L, R)
+
+    def merge_(L, R):
+        lenL, lenR = len(L), len(R)
+        i, j = 0, 0
+        r = []
+        while i < lenL and j < lenR:
+            if L[i] < R[j]:
+                r.append(L[i])
+                i += 1
+            else:
+                r.append(R[j])
+                j += 1
+        while i < lenL:
+            r.append(L[i])
+            i += 1
+        while j < lenR:
+            r.append(R[j])
+            j += 1
+    
+        return r
+    
+    return divide(A, 0, len(A)-1)
 
     
 if __name__ == '__main__':
-    A = [1,3,35,5,4]
+    A = [1,3,35,5,4, 6]
+    # A = [4,1,2,5,3]
+    B = [6,6,6,6,6,6,6,6,6,6]
     # print insertsort(A)
-    selectsort(A)
-    print A
+    # selectsort(A)
+    res = mergesort(B)
+    print res

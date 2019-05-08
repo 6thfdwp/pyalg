@@ -95,12 +95,13 @@ def longest_subpalindrome_2(s):
         @param s (string) -- the input string
         @param l (int) -- left index of substring
         @param r (int) -- right index of substring
+
         loop invaraint can be l, r maintain boundry of subpalindrome
         """
         while l >= 0 and r < len(s) and s[l] == s[r]:
             l -= 1
             r += 1
-        # l+1 make sure it's empty when not expanded
+        # l+1 make sure it's empty when not able to be expanded
         return s[l+1:r]
 
     ls = len(s)

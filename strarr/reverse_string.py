@@ -5,6 +5,10 @@ def reverse_words(text):
     """
     print ' '.join( text.split(' ')[::-1] )
 
+"""
+reverse a string of words
+" the sky   is blue  " => "blue is sky the"
+"""
 def reverse_words_rec(text):
     words = text.split(' ')
     length = len(words)
@@ -18,6 +22,7 @@ def reverse_words_rec(text):
         Time : O(n) n is the number of words 
         Space: O(n) allocated for call stack
         """
+        # reach to the last word, return as the first one to upper recursive call
         if i == length-1:
             return [ words[i] ] 
         res = recurse(i+1)

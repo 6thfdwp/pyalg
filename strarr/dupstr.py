@@ -21,20 +21,21 @@ def remove_dup(S):
         res.append(c)
     return ''.join(res)
 
+"""
+Two pointers: 
+i for iteration index, tail holds position right after the last non-dup char found so far
+So we know where to put a newly non-duplicate char (at tail)
+"""
 def remove_dup_inplace(ss):
     """
-     Remove duplicate chars of a string in place
-
-     Rather than having extra structure to track, the trick is to hava a tail pointer
-     identifying the position right behind the last char without duplicate so far.
-     Thus we know where to put a newly non-duplicate char (at tail)
-
      Time :  O(n^2)
              worst case no duplicate found (tail always equal to i)
              1 + 2 + 3 + ... + n-1
      Space:  O(1)
              without considering the input string
     """
+    if len(ss) <= 1:
+        return ss
     S = list(ss) # python string is immutable, convert it to list to be able to modify
     tail = 1
     for i in range(1, len(S)):
@@ -55,8 +56,23 @@ def remove_dup_inplace(ss):
     # tail equals to len(S), no duplicate
     return ''.join(S[:tail])
 
+def remove_insorted(ss):
+    # all the dups are stay together
+    # Time: O(N) Space: O(1)
+    tail = 1
+    for i in xrange(1, len(ss)):
+        if (ss[i] != ss[i-1]):
+            ss[tail] = ss[i]
+            tail += 1
+    print 'new length after removing %d' % tail
+    return ''.join(ss[:tail])
+
 if __name__ == '__main__':
-    print remove_dup_inplace('55556')
-    print remove_dup_inplace('5678')
-    print remove_dup_inplace('5788900')
-    print remove_dup_inplace('989898055')
+    # print remove_dup_inplace('55556')
+    # print remove_dup_inplace('5678')
+    # print remove_dup_inplace('555788900')
+    # print remove_dup_inplace('989898055')
+    
+    print remove_insorted(['5', '5', '5'])
+    print remove_insorted(['5', '6', '7','8','9'])
+    print remove_insorted(['5', '5','5','7','8','9'])

@@ -24,7 +24,7 @@ def remove_dup(S):
 """
 Two pointers: 
 i for iteration index, tail holds position right after the last non-dup char found so far
-So we know where to put a newly non-duplicate char (at tail)
+So we know where to put the next non-duplicate char (at tail)
 """
 def remove_dup_inplace(ss):
     """

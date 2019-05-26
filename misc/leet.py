@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 def romanToInt(A):
     rule = {
       'I': {step:1, jump: ['V', 'X'], m:'V', r:'X'},
@@ -22,30 +24,34 @@ def romanToInt(A):
     
     return result
 
-def removeDuplicates(A):
-    _len = len(A)
-    if _len == 0 or _len == 1: return _len
-    nj = 0
-    for i in xrange(_len-1):
-        if A[i] != A[i+1]:
-            nj += 1
-            A[nj] = A[i+1]
-            # print nj
+def findDuplicate(paths):
+    """
+    :type paths: List[str]
+    :rtype: List[List[str]]
+    each item in the input is files under same dir
+    <dir1 file() file2()>, <dir2 file3()>
+    
+    file name and content only letteres and digits, and length is 
+    consider inverted index with content as key, list of file path containing that content
+    """
+    findex = defaultdict(list)
+    
+    for i, files in enumerate(paths):
+      flist = files.split(' ')
+      d = flist[0] # dirname
 
-    print 'final nj %d' % nj
-    return nj
+      for fi in xrange(1, len(flist)):
+        f = flist[fi]
+        # l = f.find('(')
+        fname, _, content = f.partition('(')
+        # print fname, content[:-1]
 
-
-
+        fpath = d + '/' + fname
+        findex[content[:-1]].append(fpath)
+        
+    return [ flist for flist in findex.values() ]
             
 if __name__ == '__main__':
     P = [ 87, 14, 25, 41, 17, 48, 42, 15, 74, 45, 73, 20, 11, 39, 54, 5, 29, 53, 89, 66, 56, 4, 60, 98, 92, 20, 16, 80 ]
-
-    A = [ 5, 6, 6, 7,7,8 ]
-    B = [1,1,2,2,3,5,5]
-    A1 = [5,5,5,5,5,6]
-    A2 = [1,1,1, 2, 1]
-    
-    # A = ["eat", "tea", "tan", "ate", "nat", "bat"]
-    A = [2,3,3,6,15,8,7,11,2,1]
-    # print sum2(A, 4)
+    paths = ["root/a 1.txt(abcd) 2.txt(efgh)","root/c 3.txt(abcd)","root/c/d 4.txt(efgh)","root 4.txt(efgh)"]
+    print findDuplicate(paths)

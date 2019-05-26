@@ -19,10 +19,15 @@ def partition(ar, l, r):
     pivot = ar[l]
     m = l
     # loop invariant is that m always holds position such that 
-    # all els left to it (include m) is smaller than pivot
+    # where the pivot should sit
+    #
+    # 4,[2],1,5,3 pivot = 4 m = 1
+    # 4,2,[1],5,3   m = 2
+    # 4,2,1,[5],3   m = 2
+    # 4,2,1,3,[5]   m = 3
+    # => 3,2,1,4,5  return 3
     for i in range(l+1, r):
         # when pivot is the biggest one, m will always equal to i
-        # doing sort of sefl-swap
         if ar[i] < pivot:
             m += 1
             ar[m], ar[i] = ar[i], ar[m]

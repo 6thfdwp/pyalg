@@ -1,12 +1,16 @@
+"""
 # 4,2,1,5,3
 # 2,4,[1],5,3 lastSortedIdx = 1
 # 1,2,4,[5],3 lastSortedIdx = 2
+In place sorting 
+"""
 def insertsort(A):
     """
     Loop invariant: all items before i that's in current for loop are sorted
     efficient when most of items are already in sorted position
 
     Time: O(n^2) upper bound if in reverse order
+    Space: O(1)
     """
     _len = len(A)
     if _len <= 1:
@@ -20,7 +24,10 @@ def insertsort(A):
             j -= 1
     return A
 
+"""
 # 4 1 2 5 3
+In place sorting
+"""
 def selectsort(A):
     for i in xrange(len(A)):
         # initial min index is current i, items before i are sorted
@@ -32,7 +39,10 @@ def selectsort(A):
                 minIdx = j
         A[i], A[minIdx] = A[minIdx], A[i]
     
-        
+"""
+Time: O(NlogN)
+Space: O(N) or use in place merge for two divided arrays
+"""
 def mergesort(A):
     def divide(A, l, r):
         print l, r
@@ -44,6 +54,8 @@ def mergesort(A):
 
         return merge_(L, R)
 
+    # merge does the actual work, since two parts are sorted
+    # avoid the comparison between every two items
     def merge_(L, R):
         lenL, lenR = len(L), len(R)
         i, j = 0, 0

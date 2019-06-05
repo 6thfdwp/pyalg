@@ -51,12 +51,20 @@ def count1(A, target):
 
 	return count
 
+def searchrange(A, target):
+	pass
 
 if __name__ == '__main__':
 	A = [3,5,6,6,6,7,7] 
-	A = [5,5,5,5]
+	A1 = [5,5,1,1,5,5,5]
 	# A = [1,2,3,4] 
 	target = 4
 	# print countOccurrence(A, target)
-	print count1(A, target)
+	# print count1(A, target)
+
+	A = [3,15,16,19,20,1,2]
+	A = [16,17,18,19,20,1,2,3,15,16,16,16,16,16]
+	# A = [20,1,2,3,15,16]
+	A = [1,2,3,4,5,6,7]
+	print find_pivot(A1)
 

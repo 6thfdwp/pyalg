@@ -35,8 +35,8 @@ class Bitset:
         """
         Set a number's corresponding bit to 1
         """
-        idx = num >> 3
-        offset = num & 0b111
+        idx = num >> 3  # (num / 8)
+        offset = num & 0b111 # (num % 8)
         self._bv[idx] |= (1 << offset)
         
  

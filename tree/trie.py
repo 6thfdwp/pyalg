@@ -10,6 +10,11 @@ class TrieNode(object):
 class Trie(object):
     """
     input range: a-z
+    
+    If W is the length of word to insert or search
+    Time:  O(W)
+    Extra space needed for this efficiency, the children storage
+    worst is O(number of words inserted * input range)
     """
     def __init__(self):
         """
@@ -23,6 +28,7 @@ class Trie(object):
         Inserts a word into the trie.
         :type word: str
         :rtype: None
+
         """
         curNode = self._root
         for c in word:

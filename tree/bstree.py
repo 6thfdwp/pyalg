@@ -2,7 +2,7 @@ class Node(object):
     """
     Representation for one item in BST
     """
-    def __init__(self, key, data):
+    def __init__(self, key, data=None):
         """
         Initialize 4 attributes
         key   -- Value int makes Node object comparable
@@ -22,13 +22,13 @@ class Node(object):
         return '(%d %s)' % (self.key, self.data)
 
 class Binarytree():
-    def __init__(self):
+    def __init__(self, root=None):
         """
         Initialize BST
 
         _root -- root Node of the tree
         """
-        self._root = None
+        self._root = root
 
     def _newnode(self, key, data):
         """
@@ -66,12 +66,12 @@ class Binarytree():
                 node.data = data
                 return
         inserted = self._newnode(key, data)
-        # After done parent holds the refer to one leaf node 
+        # After done parent holds the refer to one leaf node
         # which will be the parent of newly inserted
         if direct == 0:
             #print '%d inserted. parent key %s left' % (key, parent.key)
-            parent.left = inserted  
-        else: 
+            parent.left = inserted
+        else:
             #print '%d inserted. parent key %s right' % (key, parent.key)
             parent.right = inserted
 
@@ -95,7 +95,7 @@ class Binarytree():
             if node is None:
                 return 0
             return 1 + max(recurse(node.left), recurse(node.right))
-            
+
         if self._root is None:
             return 0
         return recurse(self._root)
@@ -105,12 +105,25 @@ class Binarytree():
             if node is None:
                 return 0
             return 1 + min(recurse(node.left), recurse(node.right))
-            
+
         if self._root is None:
             return 0
         return recurse(self._root)
 
     def balanced(self):
+        """
+        This is only check balance for root's left and right subtree
+        not for every node's balance, e.g the following tree is balanced from root
+        but right subtree with 10 as root is not balanced
+        (if balance means left and right differs no more than one)
+              9
+            /   \
+           4    10
+         /   \    \
+        3    6     15
+            /        \
+           5        20
+        """
         return self.maxH() - self.minH() <= 1
 
     def walk_rec(self):
@@ -143,7 +156,7 @@ class Binarytree():
                 node = stack.pop()
                 yield (node.key, node.data)
                 node = node.right
-    
+
     def print_node(self):
         def print_rec(node):
             if node.left: print_rec(node.left)
@@ -156,7 +169,7 @@ class Binarytree():
          return true if other tree is subtree
         """
         def recurse(n1, n2):
-            if n2 is None: 
+            if n2 is None:
                 return True
             elif n1 is None:
                 return False
@@ -166,24 +179,23 @@ class Binarytree():
 
         subroot = self.lookup(other.getroot().key)
         print "start from %s" % str(subroot)
-        if not subroot: 
+        if not subroot:
             print "cannot find the start"
             return False
 
         return recurse(subroot, other.getroot())
 
-if __name__ == '__main__':
-    bintree = Binarytree()
-    bintree.insert(8, 'aaa')
-    bintree.insert(3, 'bbb')
-    bintree.insert(10, 'ccc')
-    bintree.insert(1, 'ddd')
-    bintree.insert(6, 'eee')
-    bintree.insert(6, 'fff')
-    bintree.insert(13, 'ggg')
-    bintree.insert(14, 'hhh')
-    
-    #bintree.print_node()
-    for each in bintree.walk_rec():
-        print each
-
+# if __name__ == '__main__':
+#     bintree = Binarytree()
+#     bintree.insert(8, 'aaa')
+#     bintree.insert(3, 'bbb')
+#     bintree.insert(10, 'ccc')
+#     bintree.insert(1, 'ddd')
+#     bintree.insert(6, 'eee')
+#     bintree.insert(6, 'fff')
+#     bintree.insert(13, 'ggg')
+#     bintree.insert(14, 'hhh')
+#
+#     #bintree.print_node()
+#     for each in bintree.walk_rec():
+#         print each

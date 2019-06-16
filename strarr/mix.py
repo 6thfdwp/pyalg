@@ -12,6 +12,9 @@ def merge_intv(intervals):
     If end of prev interval == start of next interval, merge?
     If there is same intervals, [[5, 6] [5,6]] => [ [5,6] ]
     Can use sort to pre-process the input
+
+    Time:  O(NlogN)
+    Space: O(1) exclude result
     """
     def isoverlapped(prev, next):
         return prev[1] >= next[0]

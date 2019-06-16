@@ -87,17 +87,29 @@ def subsets_yield_inplace(S):
             yield sub
             yield sub | item
 
+def combin_nk(n, k):
+  """
+  https://www.interviewbit.com/problems/combinations/
+
+  @param n (int)
+  @param k (int)
+  @return (list) generate combination with k length out of n
+  
+  """
 
 if __name__ == '__main__':
   S = set([5,6,7,8])
   # results = subsets(A1)
+  for s in subsets_yield_inplace(S):
+    print s
+
   def verbose(t):
     return '%.2f ms' % t*1000
 
   sp0 = 'from subset import subsets;'
   sp1 = 'from subset import subsets_yield_with_copy; gensub=subsets_yield_with_copy(set([5,6,7,8,9,0,1,3]))'
   sp2 = 'from subset import subsets_yield_inplace; gensub=subsets_yield_inplace(set([5,6,7,8,9,0,1,3]))'
-  import timeit
-  print timeit.repeat("subsets(set([5,6,7,8,9,0,1,3]))", setup=sp0, number=1)
-  print timeit.repeat("for sub in gensub: continue", setup=sp1, number=1)
-  print timeit.repeat("for sub in gensub: continue", setup=sp2, number=1)
+  # import timeit
+  # print timeit.repeat("subsets(set([5,6,7,8,9,0,1,3]))", setup=sp0, number=1)
+  # print timeit.repeat("for sub in gensub: continue", setup=sp1, number=1)
+  # print timeit.repeat("for sub in gensub: continue", setup=sp2, number=1)

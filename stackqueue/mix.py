@@ -1,20 +1,20 @@
 def gen_nearest_smaller(A):
 	"""
 	https://www.interviewbit.com/problems/nearest-smaller-element/
-	
+
 	@param A (list): [4, 5, 2, 10, 8]
 	@return (list):   [-1, 4, -1, 2, 2]
 
-	The catch is when list is ascending, nothing can be optimized, every el's nearest 
-	is its previous el. when it starts descending, there is something we can do. 
+	The catch is when list is ascending, nothing can be optimized, every el's nearest
+	is its previous el. when it starts descending, there is something we can do.
 	For the first el that starts descending (pivot), have to compare previous one by one
-	until a smaller one is found. So For the rest of descending portion, we do not need 
-	to compare those greater than the one that just got its nearest. 
-	
+	until a smaller one is found. So For the rest of descending portion, we do not need
+	to compare those greater than the one that just got its nearest.
+
 	[4,10,18, 6,2] 6 is the start of descending portion
 	it checks 18, 10 until 4 is found, then no need for '2' to check 18, 10 again
 	could directly start from '4', which is prev el's nearest
-	
+
 	Clarify & corner cases:
 	A is None or 1 el
 	two equal found, not smaller
@@ -35,7 +35,7 @@ def gen_nearest_smaller(A):
 		else:
 			while stack and A[i] <= stack[-1]:
 				stack.pop()
-			
+
 			if stack:
 				res.append(stack[-1])
 			else:
@@ -53,6 +53,10 @@ def gen_next_greater_diff(A):
 	@return (list):  [1, 3, 1, 1,  0, 0]
 	  For each el, put the index diff with its next greater el into result
 	  same as next greater, as need to find it to calculate the diff
+
+	Time:  O(N * )
+	Space: O(N) sorted in descending len(stack) = N
+	 stack stored those index of items that have not found their next greater
 	"""
 	if not A:
 		return None
@@ -76,6 +80,3 @@ if __name__ == '__main__':
 
 	print gen_next_greater_diff([4, 5, 2, 4, 10, 8])
 	print gen_next_greater_diff([4,5,9, 8,7,8,10])
-
-
-

@@ -15,13 +15,12 @@ def subsets(S):
         for subset in subsets:
             # add the new item to each subset found before
             # need to create a new subset otherwise it modifys original one
-            nset = set(subset)
-            nset.add( newItem )
-            newSubsets.append(nset)
+            # nset = set(subset)
+            # nset.add( newItem )
+            newSubsets.append(subset | newItem)
         return subsets + newSubsets
     A = list(S)
     return subsets_rec(A, len(A)-1)
-
 
 def subsets_yield(S):
     """ Generator version using yield
@@ -87,28 +86,88 @@ def subsets_yield_inplace(S):
             yield sub
             yield sub | item
 
-def combin_nk(n, k):
+def subsets_with_dups(nums):
+    """
+    https://leetcode.com/problems/subsets-ii/
+
+    @param nums (list): [1,2,2]
+      A might have dups
+    @result (list[list]) [[], [1], [2], [1,2], [2,2], [1,2,2]]
+
+    Clarify:
+    Does the order of result matter
+    also for each subset, does el's order matter
+        1, 2, 2  start = 0
+           |
+    2, 2   2
+   /
+  2
+    """
+    def recurse(start, path, res):
+      res.append(path)
+      for i in xrange(start, len(nums)):
+        if i > start and nums[i] == nums[i-1]:
+            continue
+        recurse(i+1, path+[nums[i]], res)
+
+    nums.sort()
+    path, res = [], []
+    recurse(0, path, res)
+    return res
+
+def combine_nk(n, k):
   """
   https://www.interviewbit.com/problems/combinations/
 
-  @param n (int)
-  @param k (int)
+  @param n (int) 4
+  @param k (int) 2
   @return (list) generate combination with k length out of n
-  
+    need to be sorted [(1,2), [1,3], [1,4], [2,3] ..]
+
+  Use backtracking with
+
+          1    2    3       k=3
+      2 3 4   3 4   4        k=2
+    3 4      4               k=1
   """
+  def recurse(start, k):
+      # base case
+      if k == 0:
+          yield []
+          # return [[]]
+      # n = 4, k = 3, start > 2
+      if n - start + 1 < k:
+          return
+          # return []
+
+      res = []
+      for i in xrange(start, n+1):
+          for cb in recurse(i+1, k-1):
+              # res.append([i] + cb)
+              yield [i] + cb
+      # return res
+
+  for cb in recurse(1, k):
+      yield cb
+  # return recurse(1, k)
 
 if __name__ == '__main__':
   S = set([5,6,7,8])
+  A = [5,6,7,7]
+  print subsets_with_dups(A)
+  # print subsets_with_dups([1,2,2])
   # results = subsets(A1)
-  for s in subsets_yield_inplace(S):
-    print s
+  # for s in subsets_yield_inplace(S):
+  #   print s
+  # for cb in combine_nk(4, 4):
+      # print cb
 
   def verbose(t):
     return '%.2f ms' % t*1000
 
-  sp0 = 'from subset import subsets;'
-  sp1 = 'from subset import subsets_yield_with_copy; gensub=subsets_yield_with_copy(set([5,6,7,8,9,0,1,3]))'
-  sp2 = 'from subset import subsets_yield_inplace; gensub=subsets_yield_inplace(set([5,6,7,8,9,0,1,3]))'
+  # sp0 = 'from subset import subsets;'
+  # sp1 = 'from subset import subsets_yield_with_copy; gensub=subsets_yield_with_copy(set([5,6,7,8,9,0,1,3]))'
+  # sp2 = 'from subset import subsets_yield_inplace; gensub=subsets_yield_inplace(set([5,6,7,8,9,0,1,3]))'
   # import timeit
   # print timeit.repeat("subsets(set([5,6,7,8,9,0,1,3]))", setup=sp0, number=1)
   # print timeit.repeat("for sub in gensub: continue", setup=sp1, number=1)

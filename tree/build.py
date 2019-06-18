@@ -1,6 +1,9 @@
 from bstree import *
 import random, array, tempfile, heapq
 
+"""
+Construct balanced BST with BFS
+"""
 def build_bintree(sortedlist):
     """
     Simulate BFS, insert level by level, e.g for array with 8 items
@@ -26,6 +29,9 @@ def build_bintree(sortedlist):
             Q.append( (mid+1, r) )
     return T
 
+"""
+Construct balanced BST with DFS
+"""
 def build_bintree_rec(sortedlist):
     """
     Instead of inserting dynamically, can rely on recursive call
@@ -71,14 +77,6 @@ def find_parent(p, k1, k2):
     # if both are in different subtrees, no need go deeper, return current p
     return p
 
-def tempfile_gen(t):
-    t.seek(0)
-    ints = array.array('i')
-    for data in read_in_chunks(t, 80):
-        ints.fromstring(data)
-    # create a generator to be used in merge phase
-    for each in ints:
-        yield each
 
 if __name__ == '__main__':
     # l = [3,6,8,10,15,16,7,9]

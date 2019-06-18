@@ -42,7 +42,7 @@ def remove_dup(duplist):
 	Time: O(N)
 	Space: O(N) when no duplicate
 	"""
-	s = set() 
+	s = set()
 	pre, node = None, duplist._head
 	while node:
 		if node.value in s:
@@ -52,7 +52,7 @@ def remove_dup(duplist):
 		else:
 			s.add(node.value)
 			pre = node
-		# always move to next node 
+		# always move to next node
 		node = node.next
 
 def rotatek(ll, k):
@@ -78,13 +78,13 @@ def rotatek(ll, k):
 	for i in xrange(move):
 		# roate cur to the right (as tail next)
 		tail.next = cur
-		# update the tail ref (as cur rotated one)
+		# update the tail ref (cur rotated one becomes new tail)
 		tail = cur
 
 		# rotate next node
 		cur = cur.next
 
-	# make tail real tail node 
+	# make tail real tail node
 	tail.next = None
     # update or return the new head ref
 	ll._head = cur

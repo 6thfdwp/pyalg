@@ -45,7 +45,7 @@ def permute_inplace(L):
     Time:  O(n!) essentially total number of permutations
     Space: O(n)  call stack
     """
-    def recurse(L, start, _len):
+    def recurse(L, start):
         """Swap recursively
         @param L     (list) -- the input list
         @param start (int) -- the index to start swapping with
@@ -57,6 +57,7 @@ def permute_inplace(L):
         start=2   / \     /
              ab[c] ac[b] ba[c] bc[a]
         """
+        _len = len(L)
         if start == _len-1:
             print L
             return
@@ -66,22 +67,22 @@ def permute_inplace(L):
         for i in range(start, _len):
             L[start], L[i] = L[i], L[start]
             # print 'start: %d i: %d\n' % (start, i),
-            recurse(L, start+1, _len)
+            recurse(L, start+1)
             # swap back for make the 'start' item the same for upper level's next iteration
             L[start], L[i] = L[i], L[start]
             # print 'after recurse start: %d i: %d\n' % (start, i),
 
-    recurse(L, 0, len(L))
+    recurse(L, 0)
 
 def permute_gen(l):
     """
-    [a, b, c] x=[a]
+    [a, b, c] x=[a] l=[b,c] yield [a,b,c] [b,a,c] [b,c,a] ..
       /
-   [b,c] x=[b]
+   [b,c] x=[b]  l=[c] yield [bc], [cb]
     /   /
-   [c]--
+   [c]-- yield [c]
     """
-    if len(l) <= 1:
+    if len(l) == 1:
         yield l
     else:
         x = [l.pop(0)]

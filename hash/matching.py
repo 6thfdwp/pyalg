@@ -44,7 +44,7 @@ def isomorphic(s, t):
     Clarify:
     If s and t are both ascii chars, we know the input key range
     """
-    # each c's position in ascii table for s and t as key, value is the index summation
+    # each c's ascii code as key, value is the index summation
     # if s and t matched exactly, e.g 'e' => 'a', e should appears in the same index of s as 'a' appears in t
     # if 'e' is in [0,3,5] in s, 'a' should also be [0,3,5] to be matched
     d1, d2 = [0 for _ in xrange(256)], [0 for _ in xrange(256)]

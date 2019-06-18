@@ -16,9 +16,9 @@ def build_bintree(sortedlist):
     Space: O(N) for processing Q
     """
     T = Binarytree()
-    Q = [(0, len(sortedlist)-1)]
+    Q = collections.deque( [(0, len(sortedlist)-1)] )
     while Q:
-        l, r = Q.pop(0)
+        l, r = Q.popleft()
         mid = (l + r) / 2
         print '%d-%d-%d' % (l, mid, r)
         T.insert(sortedlist[mid]) # insert(root, key)
@@ -63,6 +63,12 @@ def build_bintree_rec(sortedlist):
 
     root = recurse(sortedlist, 0, len(sortedlist)-1)
     return Binarytree(root)
+
+def build_tree(arr):
+    """
+    @param arr (list): [1,5,9,null,2,3]
+    @return root (Node) for BinaryTree 
+    """
 
 def find_parent(p, k1, k2):
     def cover(node, key):

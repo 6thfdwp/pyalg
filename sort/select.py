@@ -34,7 +34,8 @@ def partition(ar, l, r):
  
     # swap the pivot (a[l]) to its right position (pointed by m)
     ar[l], ar[m] = ar[m], ar[l]
-    #print 'partition %d to %d, pivot %d' % (l,r,pivot)
+    print 'partition %d to %d, pivot %d at %d' % (l,r,pivot,m)
+    print ar
     return m
  
 def quickselect(ar, k):
@@ -66,7 +67,7 @@ def quickselect(ar, k):
  
         # after partion m is the right position if the array sorted
         m = partition(ar, l, r)
-        if m == k:
+        if m == k-1:
             return m
         elif m < k:
             # The kth el is bigger sitting on the right side of pivot el

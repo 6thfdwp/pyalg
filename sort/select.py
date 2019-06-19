@@ -1,5 +1,5 @@
 import random
- 
+
 """
 Partition, merge variations
 """
@@ -18,7 +18,7 @@ def partition(ar, l, r):
     ar[l], ar[idx] = ar[idx], ar[l]
     pivot = ar[l]
     m = l
-    # loop invariant is that m always holds position such that 
+    # loop invariant is that m always holds position such that
     # where the pivot should sit
     #
     # 4,[2],1,5,3 pivot = 4 m = 1
@@ -31,22 +31,22 @@ def partition(ar, l, r):
         if ar[i] < pivot:
             m += 1
             ar[m], ar[i] = ar[i], ar[m]
- 
+
     # swap the pivot (a[l]) to its right position (pointed by m)
     ar[l], ar[m] = ar[m], ar[l]
     print 'partition %d to %d, pivot %d at %d' % (l,r,pivot,m)
     print ar
     return m
- 
+
 def quickselect(ar, k):
     """
      Select the kth smallest el in an array
-     refer: http://en.wikipedia.org/wiki/Quickselect     
+     refer: http://en.wikipedia.org/wiki/Quickselect
      Utilize the partition procedure in quicksort, but only recurse in one side instead of two
 
      @param ar (list) -- the input array
      @param k  (int)  -- the index of the kth smallest el
-     
+
      worst case: O(n^2)
         in each recursive partition costs n, n-1, n-2 .. 1
      best case: O(n)
@@ -64,7 +64,7 @@ def quickselect(ar, k):
         @return int -- the index that equals to k after several partition procedures
         """
         if l+1 >= r: return l
- 
+
         # after partion m is the right position if the array sorted
         m = partition(ar, l, r)
         if m == k-1:
@@ -75,6 +75,9 @@ def quickselect(ar, k):
         else:
             # Otherwise is smaller sitting on the left side of pivot el
             return recurse(ar, l, m, k)
-    
+
     idx = recurse(ar, 0, len(ar), k)
     return ar[idx]
+
+if __name__ == '__main__':
+    print quickselect([4,2,1,5,3])

@@ -1,5 +1,6 @@
-from bstree import *
 import random, array, tempfile, heapq
+from collections import deque
+from bstree import *
 
 """
 Construct balanced BST with BFS
@@ -64,11 +65,56 @@ def build_bintree_rec(sortedlist):
     root = recurse(sortedlist, 0, len(sortedlist)-1)
     return Binarytree(root)
 
-def build_tree(arr):
+def build_full_tree(arr):
     """
-    @param arr (list): [1,5,9,null,2,3]
-    @return root (Node) for BinaryTree 
+    @param arr (list): [1,5,9,null,2,3,4,8]
+    @return root (Node) for BinaryTree
+          1[0]
+        /       \
+      5[1]      9[2]
+     /  \       /   \
+  None   2[4]   3[5]  4[6]
     """
+
+    def build(node, i):
+        if i >= len(arr)-1:
+            return
+
+        l, r = i*2+1, i*2+2
+        lv = arr[l] if l <= len(arr) - 1 else None
+        rv = arr[r] if r <= len(arr) - 1 else None
+        ln = Node(lv) if lv is not None else None
+        rn = Node(rv) if rv is not None else None
+
+        node.left, node.right = ln, rn
+
+        # if not node.left:
+            # build(node.left, i*2+1)
+            # build(node.right, lv)
+        if node.left:
+            build(node.left, l)
+        if node.right:
+            build(node.right, r)
+
+    if not arr:
+        return
+    root = Node(arr[0])
+    build(root, 0)
+    # return root
+    return Binarytree(root)
+
+def walk_by_level(root):
+    Q = deque([(root, 0, None)])
+    while Q:
+        node, lvl, parent = Q.popleft()
+        if parent:
+            # yield node.key, lvl, parent.key
+            print 'level %d: %d with parent %d' % (lvl, node.key, parent.key)
+        if node.left:
+            Q.append((node.left, lvl+1, node))
+        if node.right:
+            Q.append((node.right, lvl+1, node))
+
 
 def find_parent(p, k1, k2):
     def cover(node, key):
@@ -86,9 +132,11 @@ def find_parent(p, k1, k2):
 
 if __name__ == '__main__':
     # l = [3,6,8,10,15,16,7,9]
-    l = [3,5,6,8,9, 10,15,16]
+    l = [3,5,6,8,9,10,15,16]
     # T = build_bintree(l)
-    T = build_bintree_rec(l)
+    # T = build_bintree_rec(l)
 
-    for n in T.walk_gen():
-        print n
+    T = build_full_tree(l)
+    walk_by_level(T._root)
+    # for n, lvl, parent in walk_by_level(T._root):
+        # print 'level %d: %d with parent %d' (lvl, n, parent)

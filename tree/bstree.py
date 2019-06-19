@@ -90,25 +90,12 @@ class Binarytree():
             return None
         return lookup_rec(key, self._root)
 
-    def maxH(self):
-        def recurse(node):
-            if node is None:
-                return 0
-            return 1 + max(recurse(node.left), recurse(node.right))
+    def height(self, node):
+        if not node:
+            # -1 returned back to the leaf level, so make leaf's height 0
+            return -1
 
-        if self._root is None:
-            return 0
-        return recurse(self._root)
-
-    def minH(self):
-        def recurse(node):
-            if node is None:
-                return 0
-            return 1 + min(recurse(node.left), recurse(node.right))
-
-        if self._root is None:
-            return 0
-        return recurse(self._root)
+        return 1 + max(height(node.left), height(node.right))
 
     def balanced(self):
         """
@@ -124,6 +111,14 @@ class Binarytree():
             /        \
            5        20
         """
+        def check(node):
+            # no height diff goes to leaf node,
+            if not node:
+                return True
+            if abs(height(node.left) - height(node.right)) > 1:
+                return False
+            check(node.left) and check(node.right)
+
         return self.maxH() - self.minH() <= 1
 
     def walk_rec(self):

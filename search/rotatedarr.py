@@ -1,7 +1,7 @@
 def find_pivot(A):
 	"""
 	A = [15,16,19,20,1,3] pivot (20) index 3
-	"""	
+	"""
 	def recurse(A, l, r):
 		m = l + (r-l) / 2
 		if l > r:
@@ -10,11 +10,12 @@ def find_pivot(A):
 		# pivot property
 		if m > l and A[m] < A[m-1]:
 			# m smaller than its left
-			print 'm smaller than left l:%d, m:%d' % (l, m)
+			# print 'm smaller than left l:%d, m:%d' % (l, m)
+			print 'current l,r = (%d, %d) pivot at %d, [%d, %d]' % (l,r, m-1, A[m-1], A[m])
 			return m-1
-		if m < r and A[m] > A[m+1]: 
+		if m < r and A[m] > A[m+1]:
 			# or larger than its right
-			print 'm larger than right m:%d, r:%d' % (m, r)
+			print 'current l,r = (%d, %d) pivot at %d, [%d, %d]' % (l, r, m, A[m], A[m+1])
 			return m
 
 		if A[m] < A[l]:
@@ -24,9 +25,11 @@ def find_pivot(A):
 		else:
 			print 'go to right (%d, %d)' % (m+1, r)
 			return recurse(A, m+1, r)
-	
+
 	l, r = 0, len(A) - 1
-	return recurse(A, l, r)
+	pivot = recurse(A, l, r)
+	return pivot
+
 
 def _search(A, target, l, r):
 	if l > r:
@@ -42,7 +45,7 @@ def _search(A, target, l, r):
 
 def rotate_search(A, target):
 	"""
-	A = [15,16,19,20,1,3] 
+	A = [15,16,19,20,1,3]
 	search 1: return 4 (index)
 	find pivot can be used to search target, the left and right of pivot are sorted
 	just find which part target falls into, by comparing with the first item
@@ -75,8 +78,8 @@ def rotate_search_1(A, target):
 
 		m = l + (r-l) / 2
 		if A[m] == target:
-			return m 
-		# all items before m are sorted, can apply normal binsearch 
+			return m
+		# all items before m are sorted, can apply normal binsearch
 		# in this portion of the array
 		if A[m] >= A[l]:
 			if target > A[l] and target < A[m]:
@@ -92,16 +95,15 @@ def rotate_search_1(A, target):
 	_len = len(A) - 1
 
 if __name__ == '__main__':
-	A = [3,5,6,6,6,7,7] 
-	A1 = [5,5,1,1,5,5,5]
+	A = [3,5,6,6,6,7,7]
+	A1 = [5,1,1,4,5,5,5]
 
 	# A = [3,15,16,19,20,1,2]
 	A = [16,17,18,19,20,1,2,3,15,16,16,16,16,16]
 	# A = [20,1,2,3,15,16]
 	# A = [1,2,3,4,5,6,7]
-	A1 = [4,5,6,7,0,1,2]
+	# A1 = [4,5,6,7,0,1,2]
 
-	# print find_pivot(A1)
+	print find_pivot(A)
 
-	print rotate_search(A1, 3)
-
+	# print rotate_search(A1, 3)

@@ -3,7 +3,7 @@ def countOccurrence(A, target):
   @param A: given sorted array potentially with dups
   	A = [3,5,6,6,6,7,7] target = 6
   	A = [5,5,5,5]  target = 5
- 
+
   Time: O(N)
   """
   count = 0
@@ -15,13 +15,13 @@ def countOccurrence(A, target):
   		continue
   	else:
   		break
-  
+
   return count
 
-def count1(A, target):
+def countOccurrence1(A, target):
 	"""
-	Time: O(logN + C) 
-	worst case is all items are the same
+	Time: O(logN + C)
+	O(N) worst case when all items are the same
 	"""
 	l, r, m = 0, len(A) - 1, -1
 	count = 0
@@ -52,19 +52,52 @@ def count1(A, target):
 	return count
 
 def searchrange(A, target):
-	pass
+    """
+    @params A (list): [3,5,6,6,6,7,7] with potential dups
+    @params target (int): key to find
+    @return (list) target range [start idx, end idx], return empty [] if not found
+
+    Do it in O(logN)
+    If we follow counting dups, it will be O(N) if we have lots of dups
+    """
+    def sided_search(A, target, dir):
+
+        l, r = 0, len(A)-1
+        while l <= r:
+            m = l + (r-l)/2
+            if target < A[m]:
+                r = m-1
+            elif target > A[m]:
+                l = m+1
+            else:
+                # target found, go left to find start if dir = 'left'
+                # print 'find'
+                if dir == 'left':
+                    r = m-1
+                else:
+                    l = m + 1
+
+        if target == A[m]:
+            return m
+        if dir == 'left':
+            return m + 1
+        if dir == 'right':
+            return m - 1
+
+    lr = sided_search(A, target, 'left')
+    rr = sided_search(A, target, 'right')
+    return [lr, rr]
+
+# def searchcloset(A, target):
 
 if __name__ == '__main__':
-	A = [3,5,6,6,6,7,7] 
-	A1 = [5,5,1,1,5,5,5]
-	# A = [1,2,3,4] 
-	target = 4
-	# print countOccurrence(A, target)
-	# print count1(A, target)
+    A = [3,5,6,6,6,7,7]
+    A = [1,3,4,5,6,6]
+    A = [3,4,5,6,6,7,7]
+    print searchrange(A, 1)
+    print 'aaa'
 
-	A = [3,15,16,19,20,1,2]
-	A = [16,17,18,19,20,1,2,3,15,16,16,16,16,16]
-	# A = [20,1,2,3,15,16]
-	A = [1,2,3,4,5,6,7]
-	print find_pivot(A1)
-
+# if __name__ == '__main__':
+#
+# 	A = [3,5,6,6,6,7,7]
+    # print searchrange(A, 6)

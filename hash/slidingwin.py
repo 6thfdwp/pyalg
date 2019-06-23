@@ -10,7 +10,8 @@ def dNums(A, K):
     We do not need to slice the A by K, and count the distinct numbers
     Maintain a counter map for each el, the number of entries in the map is the counter of distinct numbers
     We count for the first window, slide it and calcuate for next window:
-    deduct the top el in previous window, add next el for next window
+    deduct the top el's counter in previous window, (and check if it becomes 0) 
+    add next el and its counter map for next window
 
     Time:  O(N)
     Space: O(K) counter map has the K entries at most (no duplicate)

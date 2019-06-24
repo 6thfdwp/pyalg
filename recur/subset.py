@@ -99,7 +99,7 @@ def subsets_with_dups(nums):
     also for each subset, does el's order matter
         1, 2, 2  start = 0
            |
-    2, 2   2
+     2,2   2
    /
   2
     """
@@ -126,7 +126,7 @@ def combine_nk(n, k):
 
   Use backtracking with
 
-          1    2    3       k=3
+          1    2    3        k=3
       2 3 4   3 4   4        k=2
     3 4      4               k=1
   """
@@ -135,7 +135,7 @@ def combine_nk(n, k):
       if k == 0:
           yield []
           # return [[]]
-      # n = 4, k = 3, start > 2
+      # n = 4, k = 3, not enough els when start > 2
       if n - start + 1 < k:
           return
           # return []
@@ -157,8 +157,6 @@ if __name__ == '__main__':
   print subsets_with_dups(A)
   # print subsets_with_dups([1,2,2])
   # results = subsets(A1)
-  # for s in subsets_yield_inplace(S):
-  #   print s
   # for cb in combine_nk(4, 4):
       # print cb
 

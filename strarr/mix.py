@@ -36,6 +36,16 @@ def merge_intv(intervals):
 
     return result
 
+def max_dist(nums):
+    """
+    https://www.interviewbit.com/problems/max-distance/
+
+    @params nums (list): [3  5  4  2]
+    @return (int): max(j - i) where A[i] <= A[j] i < j
+        [(2,3), (3,0), (4,2), (5,1)]
+    right max: [ 3, 2, 2, 1]
+    """
+
 if __name__ == '__main__':
     # print A
     intv = [[2,6],[8,10],[15,18],[1,9]]

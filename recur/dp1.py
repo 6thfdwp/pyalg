@@ -1,14 +1,3 @@
-"""
-       0, 3
-     /       \
-   1,3       0,2
-  /   \      /   \   
- 2,3  1,2   1,2  0,1
-/    \     /
-3,3  2,2  2,2
-/  \      /
-4,3 3,2  3,2
-"""
 def maxsum_subs(A):
 	"""
 	https://www.interviewbit.com/problems/max-sum-contiguous-subarray/
@@ -61,8 +50,17 @@ def max_profit1(A):
 
 	Only allow buy once and sell once. Find the max profit.
 	@params A (list): [7,1,5,3,6,4]
+		a few others: [7,3,5,1,6,4], [7,3,9,1,6,4]
 	@return (int): max profit number 5 (buy day 2 and sell day 5)
 		If price is alway dropping, no transaction, return 0
+
+	There is sub-optimal structure 
 	"""
-	
+	low = A[0]
+	res = 0 
+	for i in xrange(1, len(A)):
+		# A[i] - low
 	print A
+
+if __name__ == '__main__':
+	main()

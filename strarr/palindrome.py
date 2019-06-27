@@ -52,11 +52,11 @@ def longest_subpalindrome_dp(s):
     they are equal. If true we get a longer one. Formulated below:
 
     P[i][j] - 2-d array P[i][j] is true iff s[i:j] is palindrome
-    P[i][j] = P[i+1][j-1] and s[i][j]
+    P[i][j] = P[i+1][j-1] and s[i] == s[j]
     Base case is one char and two chars plindrome
 
-    time : O(n^2)
-    space: O(n^2)
+    Time : O(n^2)
+    Space: O(n^2)
     """
     ls = len(s)
     start, maxlen, end = 0, 1, 0
@@ -72,21 +72,22 @@ def longest_subpalindrome_dp(s):
             start, maxlen, end = i, 2, i+1
     # start length of 3 up to the whole length of string
     for slen in range(3, ls+1):
-        # for each length 'slen' try different parts of substring
+        # for each length 'slen', sliding 'slen' from begining to end
         for i in range(ls-slen+1):
             j = i + slen - 1
             if s[i] == s[j] and P[i+1][j-1]:
                 P[i][j] = True
                 start, maxlen, end = i, slen, j
+                print 'maxlen %d, from %d to %d' % (maxlen, start, j)
 
-    print 'maxlen %d, from %d to %d' % (maxlen, start, j)
+    # print 'maxlen %d, from %d to %d' % (maxlen, start, j)
     return s[start:end+1]
 
 
 def longest_subpalindrome_2(s):
     """
-    time : O(n^2)
-    space: O(1)
+    Time : O(n^2)
+    Space: O(1)
     """
     def expand(s, l, r):
         """
@@ -122,10 +123,12 @@ def longest_subpalindrome_2(s):
     return longest
 
 if __name__ == '__main__':
-    print longest_subpalindrome_2('ababa')
-    print longest_subpalindrome_2('abbac')
-    print longest_subpalindrome_2('abcccccdd')
+    # print longest_subpalindrome_2('ababa')
+    # print longest_subpalindrome_2('abbac')
+    # print longest_subpalindrome_2('abcccccdd')
+    
     # print longest_subpalindrome_dp('aaaaa')
+    print longest_subpalindrome_dp('abcccccdd')
     # print longest_palindrome_dp('abacdfgdcaba')
     # print is_palindrome_str('amannama')
     # print reverse_num(5698)

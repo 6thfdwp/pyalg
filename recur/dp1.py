@@ -10,10 +10,10 @@ def maxsum_subs(A):
 	We either start sub from A[i] if it's bigger (f[i-1]<0) or add it to previous sum
 	f[i] is also called local optimal value (max sum)
 
-	There is no overlapping subproblems 
+	There is no overlapping subproblems
 
 	Time: O(N)
-	Space: O(1) 
+	Space: O(1)
 		only care about the previous max sum, no need to store for every el
 	"""
 	size = len(A)
@@ -41,26 +41,42 @@ def maxsum_subs1(A):
 		elif res < localmax:
 			res = localmax
 			sidx = t
-			eidx = i 
+			eidx = i
 	print 'max sum is between A[%d]=%d and A[%d]=%d: %d' % (sidx, A[sidx], eidx, A[eidx], res)
 
-def max_profit1(A):
+# def max_profit1(A):
 	"""
 	https://www.interviewbit.com/problems/best-time-to-buy-and-sell-stocks-i/
 
 	Only allow buy once and sell once. Find the max profit.
 	@params A (list): [7,1,5,3,6,4]
-		a few others: [7,3,5,1,6,4], [7,3,9,1,6,4]
+		a few others: [7,3,5,1,6,4], [7,3,9,1,6,4], [7,9,3,1,6,4]
 	@return (int): max profit number 5 (buy day 2 and sell day 5)
 		If price is alway dropping, no transaction, return 0
 
-	There is sub-optimal structure 
+	There is sub-optimal structure
 	"""
-	low = A[0]
-	res = 0 
-	for i in xrange(1, len(A)):
-		# A[i] - low
-	print A
+	# low = A[0]
+	# res = 0
+    # print 'dd'
+	# for i in xrange(1, len(A)):
+    #     res = max(A[i] - low, res)
+    #     print 'local max res: %d until day %d:' % (res, i+1)
+    #     low = min(A[i], low)
+    #     print 'latest low %d' % low
+
+def max_profit1(A):
+    low = A[0]
+    res = 0
+    print 'dd'
+    for i in xrange(1, len(A)):
+        res = max(A[i] - low, res)
+        print 'local max res: %d until day %d:' % (res, i+1)
+        low = min(A[i], low)
+        print 'latest low %d' % low
+    return res
 
 if __name__ == '__main__':
-	main()
+	# max_profit1([7,1,5,3,6,4])
+    max_profit1([7,9,3,1,6,4])
+    max_profit1([7,9,3,1,6,4])

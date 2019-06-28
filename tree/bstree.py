@@ -99,10 +99,9 @@ class Binarytree():
 
     def balanced(self):
         """
-        This is only check balance for root's left and right subtree
-        not for every node's balance, e.g the following tree is balanced from root
-        but right subtree with 10 as root is not balanced
-        (if balance means left and right differs no more than one)
+        Need to consider height diff for every level, not only just for root's
+        e.g the following tree is balanced from root, but right subtree with 10
+        as root is not balanced (if balance means left and right differs no more than one)
               9
             /   \
            4    10
@@ -117,9 +116,10 @@ class Binarytree():
                 return True
             if abs(height(node.left) - height(node.right)) > 1:
                 return False
-            check(node.left) and check(node.right)
+            return check(node.left) and check(node.right)
 
-        return self.maxH() - self.minH() <= 1
+        return check(self._root)
+        # return self.maxH() - self.minH() <= 1
 
     def walk_rec(self):
         """

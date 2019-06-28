@@ -42,11 +42,41 @@ def max_dist(nums):
 
     @params nums (list): [3  5  4  2]
     @return (int): max(j - i) where A[i] <= A[j] i < j
-        [(2,3), (3,0), (4,2), (5,1)]
-    right max: [ 3, 2, 2, 1]
+
+    The idea is to sort the input list but keep the original idx along with each el
+    [(2,3), (3,0), (4,2), (5,1)]
+    For each el, all els after it are bigger, we need to find their idx diff, pick max one
+
+    The trick is right max: [ 3, 2, 2, 1]
+    For each from the right part of the sorted list, find the max idx so far. The diff between
+    its original idx and the corresponding max idx is the distance for this el
+
+    Time:  O(NlogN)
+    Space: O(N)
     """
+    nums_with_idx = [(n, i) for i, n in enumerate(nums)]
+    nums_with_idx.sort(key = lambda x: x[0])
+    print nums_with_idx
+    midx = -1
+    rmax = [-1] * len(nums)
+    for r in reversed( xrange(len(nums)) ):
+        n, idx = nums_with_idx[r]
+        midx = max(midx, idx)
+        rmax[r] = midx
+    print rmax
+
+    res = 0
+    for i, (n, idx) in enumerate(nums_with_idx):
+        if rmax[i] - idx > res:
+            print 'bigger diff found between nums[%d]=%d and nums[%d]=%d' % (rmax[i], nums[rmax[i]], idx, nums[idx])
+        res = max(res, rmax[i] - idx)
+    return res
+
 
 if __name__ == '__main__':
     # print A
     intv = [[2,6],[8,10],[15,18],[1,9]]
-    print merge_intv(intv)
+    # print merge_intv(intv)
+
+    print max_dist([5, 3, 4, 2, 5])
+    print max_dist([8, 6, 4, 2])

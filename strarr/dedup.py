@@ -73,6 +73,6 @@ if __name__ == '__main__':
     # print remove_dup_inplace('555788900')
     # print remove_dup_inplace('989898055')
     
-    print remove_insorted(['5', '5', '5'])
+    print remove_insorted(['5'])
     print remove_insorted(['5', '6', '7','8','9'])
     print remove_insorted(['5', '5','5','7','8','9'])

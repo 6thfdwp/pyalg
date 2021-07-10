@@ -14,6 +14,7 @@ def reverse_words_rec(text):
     length = len(words)
     if length == 0:
         print ''
+
     def recurse(i):
         """ 
         Internal recursive function to put each word in reversed order
@@ -26,7 +27,9 @@ def reverse_words_rec(text):
         if i == length-1:
             return [ words[i] ] 
         res = recurse(i+1)
+        print 'reach word at %d' % (i+1)
         res.append( words[i] )
+        print 'append previous word: %s' % (words[i])
         return res
 
     print ' '.join( recurse(0) )
@@ -42,5 +45,9 @@ def reverse_in_place(text):
     for i in range( (_len/2 + 1) ):
         j = _len - i
         words[i], words[j] = words[j], words[i]
+
     print ' '.join(words)
   
+if __name__ == '__main__':
+    original = "the sky is blue"
+    reverse_words_rec(original)

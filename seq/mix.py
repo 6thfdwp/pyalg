@@ -5,11 +5,12 @@ def gen_nearest_smaller(A):
 	@param A (list): [4, 5, 2, 10, 8]
 	@return (list):   [-1, 4, -1, 2, 2]
 
-	The catch is when list is ascending, nothing can be optimized, every el's nearest
-	is its previous el. when it starts descending, there is something we can do.
-	For the first el that starts descending (pivot), have to compare previous one by one
-	until a smaller one is found. So For the rest of descending portion, we do not need
-	to compare those greater than the one that just got its nearest.
+	The catch is when list is ascending, no need to be optimized, every el's nearest
+	is its previous el. 
+	when it starts descending, For the first el that starts descending (pivot), 
+	have to compare previous one by one until a smaller one is found. 
+	Bu For the rest of descending portion, we do not need to compare with 
+	those greater than the one that just got its nearest
 
 	[4,10,18, 6,2] 6 is the start of descending portion
 	it checks 18, 10 until 4 is found, then no need for '2' to check 18, 10 again
@@ -51,8 +52,10 @@ def gen_next_greater_diff(A):
 
 	@param A (list): [4, 5, 2, 4, 10, 8]
 	@return (list):  [1, 3, 1, 1,  0, 0]
-	  For each el, put the index diff with its next greater el into result
-	  same as next greater, as need to find it to calculate the diff
+		As the res size is fixed, we can init first with the same size of input 
+		The way we fill it with result does not have to be sequential. When it is
+		descending, we do not need to find next greater for every el (each involves multi loops),
+		can accumulate until it is descedning again
 
 	Time:  O(N * len(stack))
 	Space: O(N) sorted in descending len(stack) = N

@@ -83,10 +83,40 @@ def bracket(nn):
 
     gen_rec(nn, nn, [])
 
-def bracket_gen(nn):
-    if (nn == 1):
-        yield ['(',')']
-    # bracket(nn-1)
+def gen_banlance(s):
+    """
+    @params s (str): '(())('
+    @return (str): balanced portion of input s 
+    
+    (())(':
+    lres: ['(', '(', ')', ')', '(']
+    rres: ['(', '(', ')', ')', '_']
+    
+    other inputs: '(()))(())'
+    """
+    # from left to remove ')' redundancy
+    lres = ['_'] * len(s)
+    # from right to remove '(' redundancy
+    rres = ['_'] * len(s)
+    stack = []
+    for i in xrange(len(s)):
+        if s[i] == '(':
+            stack.append(s[i])
+            lres[i] = s[i]
+        elif stack and stack[-1] == '(':
+                stack.pop()
+                lres[i] = s[i]
+    stack = []
+    for i in reversed(xrange(len(s))):
+        if s[i] == ')':
+            stack.append(s[i])
+            rres[i] = s[i]
+        elif stack and stack[-1] == ')':
+                stack.pop()
+                rres[i] = s[i]
+    print lres
+    print rres
+
 
 if __name__ == '__main__':
     # print is_valid_brackets('[()()]')

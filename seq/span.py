@@ -4,6 +4,7 @@ def gen_nearest_smaller(A):
 
 	@param A (list): [4, 5, 2, 10, 8]
 	@return (list):   [-1, 4, -1, 2, 2]
+	For each el in A, find its nearest smaller el before it, return the new list
 
 	The catch is when list is ascending, no need to be optimized, every el's nearest
 	is its previous el. 

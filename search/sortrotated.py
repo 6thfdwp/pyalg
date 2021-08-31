@@ -30,28 +30,30 @@ def find_pivot(A):
 	pivot = recurse(A, l, r)
 	return pivot
 
-
-def _search(A, target, l, r):
-	if l > r:
-		return -1
-	m = l + (r-l) / 2
-	print l, m, r
-	if A[m] == target:
-		return m
-	if target < A[m]:
-		return _search(A, target, l, m-1)
-	else:
-		return _search(A, target, m+1, r)
-
 def rotate_search(A, target):
 	"""
+	https://leetcode.com/problems/search-in-rotated-sorted-array/
+
 	A = [15,16,19,20,1,3]
 	search 1: return 4 (index)
 	find pivot can be used to search target, the left and right of pivot are sorted
 	just find which part target falls into, by comparing with the first item
 
-	Time: O(ClogN)
+	Time:  O(C*lgN)
+	Space: O(lgN) recursion stack
 	"""
+	def _search(A, target, l, r):
+		if l > r:
+			return -1
+		m = l + (r-l) / 2
+		print l, m, r
+		if A[m] == target:
+			return m
+		if target < A[m]:
+			return _search(A, target, l, m-1)
+		else:
+			return _search(A, target, m+1, r)
+
 	pivot = find_pivot(A)
 	_len = len(A) - 1
 	if pivot == -1:

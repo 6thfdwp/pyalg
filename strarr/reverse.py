@@ -32,7 +32,8 @@ def reverse_words_rec(text):
         print 'append previous word: %s' % (words[i])
         return res
 
-    print ' '.join( recurse(0) )
+    # print ' '.join( recurse(0) )
+    print recurse(0)
     
 def reverse_in_place(text):
     words = text.split(' ')
@@ -50,4 +51,5 @@ def reverse_in_place(text):
   
 if __name__ == '__main__':
     original = "the sky is blue"
-    reverse_words_rec(original)
+    o = ' the sky   is blue  '
+    reverse_words_rec(o)

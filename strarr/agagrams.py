@@ -13,6 +13,7 @@ def groupAnagrams(strs):
     can return in any order (Hash table unordered)
     """
     d = defaultdict(list)
+    d2 = defaultdict(int)
     for str in strs:
         k = ''.join(sorted(str))
         d[k].append(str)

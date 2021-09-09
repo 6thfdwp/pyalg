@@ -37,7 +37,7 @@ def is_valid_brackets(S):
     
     return not temp
 
-def bracket(nn):
+def all_bracket(nn):
     """ Find all valid brackets combinations
 
     @param nn (int) -- the number of bracket pairs
@@ -59,10 +59,12 @@ def bracket(nn):
     """
     def gen_rec(l, r, results):
         """
+        https://leetcode.com/problems/generate-parentheses/
         @param l       (int) -- left brackets remain
         @param r       (int) -- right brackets remain
         @param results (list) -- store current brackets
         """
+        # no need this if r starts from 0 instead of n 
         if l > r:
             # prune recursion tree for invalid state:
             # more left brackets as one left need one right to match
@@ -120,6 +122,6 @@ def gen_banlance(s):
 
 if __name__ == '__main__':
     # print is_valid_brackets('[()()]')
-    print is_valid_brackets('{})){}')
+    # print is_valid_brackets('{})){}')
     # print is_valid_brackets('(){}')
-    # bracket(3)
+    all_bracket(2)

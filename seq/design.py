@@ -40,7 +40,6 @@ class MinStack:
         self._top -= 1
         self._stack.pop()
 
-
     # @return an integer
     def top(self):
         if self.isEmpty():
@@ -57,20 +56,58 @@ class MinStack:
 
 class QStack(object):
     """
-    docstring for ClassName
+    https://leetcode.com/problems/implement-stack-using-queues/
+    Only two (or one) queues, standard ops: enqueue, peek/dequeue to simulate stack order
     """
-    def __init__(self, arg):
-        self.arg = arg
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self._que1 = []
+    
+    def push(self, x):
+        """
+        Push element x onto stack.
+        :type x: int
+        :rtype: None
+        """
+        self._que1.append(x)
+        l = self._que1.length - 1
+        while l > 0:
+          self._que1[l-1], self._que1[l] = self._que1[l], self._que1[l-1]
+          l -= 1
+          
+    def pop(self):
+        """
+        Removes the element on top of the stack and returns that element.
+        :rtype: int
+        """
+        if self.empty():
+          return False
+        
+        return self._que1.pop(0)
 
+    def top(self):
+        """
+        Get the top element.
+        :rtype: int
+        """
+        if self.empty():
+          return False
+        return self._que1[0]
+      
+    def empty(self):
+        """
+        Returns whether the stack is empty.
+        :rtype: bool
+        """
+        return len(self._que1) <= 0  
 
 if __name__ == '__main__':
     ms = MinStack()
     ms.push(5)
     ms.push(1)
-    print ms
-    print ms.getMin()
-    print ms.pop()
-    print ms
+
 
 
 

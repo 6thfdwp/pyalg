@@ -1,28 +1,5 @@
 from collections import defaultdict
 
-def romanToInt(A):
-    rule = {
-      'I': {step:1, jump: ['V', 'X'], m:'V', r:'X'},
-      'V': {step:5, jump: []},
-      'X': {step:10,jump: ['L', 'C'], m:'L', r:'C'},
-      'L': {step:50, jump: []},
-      'C': {step:100, jump: []}
-    }
-    result, i = 0, 0
-    _len = len(A)
-    while i <= _len:
-        symbol, nextSymbol = A[i], A[i+1]
-        if symbol != nextSymbol:
-            if nextSymbol in rule[symbol].jump:
-                result += rule[nextSymbol].step - rule[symbol].step
-                i += 2
-            else:
-                result += rule[symbol].step
-        else:
-            result += rule[symbol].step
-            i += 1
-    
-    return result
 
 def findDuplicate(paths):
     """

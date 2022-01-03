@@ -17,8 +17,9 @@ def groupAnagrams(strs):
     for str in strs:
         k = ''.join(sorted(str))
         d[k].append(str)
-    
+
     return d.values()
+    
 
 if __name__ == '__main__':
    input1 = ["eat","tea","tan","ate","nat","bat"] 

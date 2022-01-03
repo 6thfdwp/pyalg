@@ -15,17 +15,17 @@ def partition(ar, l, r):
     """
     # use a random pivot to avoid getting the bad pivot if input array is sorted
     idx = random.randrange(l,r)
+    pivot = ar[idx]
+    # move pivot to the current left most to start with
     ar[l], ar[idx] = ar[idx], ar[l]
-    pivot = ar[l]
+    # init m as the left index
+    # loop invariant is that m always holds position where the pivot should sit
     m = l
-    # loop invariant is that m always holds position such that
-    # where the pivot should sit
-    #
     # 4,[2],1,5,3 pivot = 4 m = 1
     # 4,2,[1],5,3   m = 2
     # 4,2,1,[5],3   m = 2
     # 4,2,1,3,[5]   m = 3
-    # => 3,2,1,4,5  return 3
+    # => 3,2,1,4,5  return idx=3 is the final for pivot=4
     for i in range(l+1, r):
         # when pivot is the biggest one, m will always equal to i
         if ar[i] < pivot:
@@ -80,4 +80,6 @@ def quickselect(ar, k):
     return ar[idx]
 
 if __name__ == '__main__':
-    print quickselect([4,2,1,5,3])
+    # arrK = quickselect([4,2,1,5,3], 3)
+    arrK = quickselect([9,8,8,7,7,5], 1)
+
